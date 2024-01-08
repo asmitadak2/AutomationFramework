@@ -22,9 +22,16 @@ namespace AutomationFramework.Tests
         public void OpenBing()
         {
             HomePage homepage = new(GetWebDriver());
+
             GetWebDriver().Navigate().GoToUrl("https://www.bing.com");
             GetWebDriver().Manage().Window.Maximize();
             GetWebDriver().FindElement(By.Name("q")).SendKeys("I Want to se this on a remote machine");
+        }
+        [Test]
+        public void SearchGoogle()
+        {
+            HomePage homepage = new(GetWebDriver());
+            homepage.googleit();
         }
     }
 }

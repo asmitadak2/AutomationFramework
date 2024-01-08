@@ -24,9 +24,15 @@ namespace AutomationFramework.Tests
         {
             HomePage homepage=new(GetWebDriver());
             homepage.googleit();
-            GetWebDriver().Navigate().GoToUrl("https://www.google.com");
-            GetWebDriver().Manage().Window.Maximize();
-            GetWebDriver().FindElement(By.Name("q")).SendKeys("I Want to se this on a remote machine");
+            //GetWebDriver().Navigate().GoToUrl("https://www.google.com");
+            //GetWebDriver().Manage().Window.Maximize();
+            //GetWebDriver().FindElement(By.Name("q")).SendKeys("I Want to se this on a remote machine");
+        }
+        [Test]
+        public void SearchGoogle()
+        {
+            HomePage homepage = new(GetWebDriver());
+            homepage.googleit();
         }
 
     }

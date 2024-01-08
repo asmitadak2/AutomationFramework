@@ -13,7 +13,7 @@ namespace AutomationFramework.Tests
 {
     [TestFixture(BrowserType.Chrome, "https://localhost:4444/wd/hub")]
     [TestFixture(BrowserType.Edge, "https://localhost:4444/wd/hub")]
-    [Parallelizable(ParallelScope.Self)]
+    [Parallelizable(ParallelScope.Fixtures)]
     public class BaseTest
     {
         ThreadLocal<IWebDriver> driver = new ThreadLocal<IWebDriver>();
@@ -35,6 +35,13 @@ namespace AutomationFramework.Tests
             webDriver = Browsers.CreateInstance(browserType);
             driver.Value = webDriver;   
 #pragma warning restore CS8601 // Possible null reference assignment.
+        }
+        [TearDown]
+        public void TearUp()
+        {
+            IWebDriver webDriver;
+            webDriver=driver.Value;
+            webDriver.Quit();
         }
         public IWebDriver GetWebDriver()
         {

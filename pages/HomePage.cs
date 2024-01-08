@@ -20,7 +20,7 @@ namespace AutomationFramework.pages
             this.driver = driver;
         }
 
-        public void ValidateURL(IWebElement url)
+        public void ValidateURL(IWebElement url) //IWebElement
         {
             String anything=url.GetAttribute("text");
             if (string.IsNullOrEmpty(anything)) {
@@ -32,7 +32,9 @@ namespace AutomationFramework.pages
 
         internal void googleit()
         {
-            throw new NotImplementedException();
+            driver.Navigate().GoToUrl("https://www.google.com");
+            driver.Manage().Window.Maximize();
+            driver.FindElement(By.Name("q")).SendKeys("I Want to se this on a remote machine");
         }
     }
 }
