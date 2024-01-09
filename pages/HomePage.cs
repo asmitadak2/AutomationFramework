@@ -13,28 +13,30 @@ namespace AutomationFramework.pages
     public class HomePage:BasePage
     {
         IWebDriver driver;
-
+        By searchbox = By.Name("q");
 
         public HomePage(IWebDriver driver):base(driver)
         {
             this.driver = driver;
         }
 
-        public void ValidateURL(IWebElement url) //IWebElement
-        {
-            String anything=url.GetAttribute("text");
-            if (string.IsNullOrEmpty(anything)) {
-                Assert.Fail();
-            }
-            click(url);
-           
-        }
+        //public void ValidateURL(IWebElement url) //IWebElement
+        //{
+        //    String anything = url.GetAttribute("text");
+        //    if (string.IsNullOrEmpty(anything))
+        //    {
+        //        Assert.Fail();
+        //    }
+        //    click(url);
+
+        //}
 
         internal void googleit()
         {
             driver.Navigate().GoToUrl("https://www.google.com");
             driver.Manage().Window.Maximize();
-            driver.FindElement(By.Name("q")).SendKeys("I Want to se this on a remote machine");
+            Type(searchbox, "I Want to se this on a remote machine");
+            //driver.FindElement(By.Name("q")).SendKeys("I Want to se this on a remote machine");
         }
     }
 }

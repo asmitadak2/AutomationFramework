@@ -18,8 +18,9 @@ namespace AutomationFramework.pages
         }
         
 
-        public void click(IWebElement element)
+        public void click(By keyword)
         {
+            IWebElement element = driver.FindElement(keyword);
             try
             {
                 element.Click();
@@ -37,8 +38,9 @@ namespace AutomationFramework.pages
             }
 
         }
-        public void ScrollToView(IWebElement element, IWebDriver driver)
+        public void ScrollToView(By keyword, IWebDriver driver)
         {
+            IWebElement element = driver.FindElement(keyword);
 
             IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
             // Scrolling down the page till the element is found		
@@ -64,8 +66,9 @@ namespace AutomationFramework.pages
 
 
         }
-        public void SelectAllcheckboxes(List<IWebElement> webElements)
+        public void SelectAllcheckboxes(By Keyword)
         {
+            IList<IWebElement> webElements = driver.FindElements(Keyword);
             try
             {
                 foreach (IWebElement element in webElements)
@@ -81,9 +84,14 @@ namespace AutomationFramework.pages
                 Assert.Fail(e.Message);
             }
         }
+        //public IWebElement GetWebElement(By name)
+        //{
+        //    return driver
+        //}
 
-        public void Type(IWebElement element, string value)
+        public void Type(By keyword, string value)
         {
+            IWebElement element= driver.FindElement(keyword);
             try
             {
                 element.Clear();
