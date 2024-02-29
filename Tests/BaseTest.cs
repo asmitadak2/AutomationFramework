@@ -40,7 +40,7 @@ namespace AutomationFramework.Tests
 
         public void Setup()
         {
-            ExtentManager.createtest(GetType().Name);
+            ExtentManager.createtest(TestContext.CurrentContext.Test.Name);
             IWebDriver webDriver;
            
 #pragma warning disable CS8601 // Possible null reference assignment.

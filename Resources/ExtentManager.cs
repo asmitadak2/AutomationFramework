@@ -25,7 +25,7 @@ namespace AutomationFramework.Resources
         [MethodImpl(MethodImplOptions.Synchronized)]
         public static ExtentTest createtest(string Testname, String description = null)
         {
-            childtest = ExtentService.GetExtent().CreateTest(Testname, description);
+            childtest = parenttest.CreateNode(Testname, description);
             return childtest;
         }
         [MethodImpl(MethodImplOptions.Synchronized)]
