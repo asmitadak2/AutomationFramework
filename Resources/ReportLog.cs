@@ -1,4 +1,5 @@
 ﻿using AventStack.ExtentReports;
+using AventStack.ExtentReports.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,15 +10,15 @@ namespace AutomationFramework.Resources
 {
     internal class ReportLog
     {
-        public static void Pass(string message)
+        public static void Pass(string message, MediaEntityModelProvider media = null)
         {
-            ExtentManager.getTest().Pass(message);
+            ExtentManager.getTest().Pass(message,media);
         }
         public static void Fail(string message, MediaEntityModelProvider media=null)
         {
-            ExtentManager.getTest().Fail(message);
+            ExtentManager.getTest().Fail(message,media);
         }
-        public static void SKip(string message)
+        public static void Skip(string message)
         {
             ExtentManager.getTest().Skip(message);
         }

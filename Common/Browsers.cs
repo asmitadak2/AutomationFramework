@@ -11,6 +11,7 @@ using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.IE;
 using OpenQA.Selenium.Remote;
 using AutomationFramework.Common;
+using AutomationFramework.Resources;
 
 namespace AutomationFramework.Common
 {
@@ -56,14 +57,17 @@ namespace AutomationFramework.Common
                 case BrowserType.Chrome:
                     ChromeOptions chromeOptions = new ChromeOptions();
                     driver = GetWebDriver(hubUrl, chromeOptions.ToCapabilities());
+                    ReportLog.Pass("Chrome Initialised successfully");
                     break;
                 case BrowserType.Edge:
                     EdgeOptions options = new EdgeOptions();
                     driver = GetWebDriver(hubUrl, options.ToCapabilities());
+                    ReportLog.Pass("Edge Initialised successfully");
                     break;
                 case BrowserType.Firefox:
                     FirefoxOptions firefoxOptions = new FirefoxOptions();
                     driver = GetWebDriver(hubUrl, firefoxOptions.ToCapabilities());
+                    ReportLog.Pass("Firefox Initialised successfully");
                     break;
                 
             }

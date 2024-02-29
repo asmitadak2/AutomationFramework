@@ -1,5 +1,6 @@
 ﻿using AutomationFramework.Common;
 using AutomationFramework.pages;
+using AutomationFramework.Resources;
 using OpenQA.Selenium;
 using System;
 using System.Collections.Generic;
@@ -24,8 +25,10 @@ namespace AutomationFramework.Tests
             HomePage homepage = new(GetWebDriver());
 
             GetWebDriver().Navigate().GoToUrl("https://www.bing.com");
+            ReportLog.Pass("User is in URL");
             GetWebDriver().Manage().Window.Maximize();
             GetWebDriver().FindElement(By.Name("q")).SendKeys("I Want to se this on a remote machine");
+           
         }
         [Test]
         public void SearchGoogle()

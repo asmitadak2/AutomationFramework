@@ -23,6 +23,8 @@ namespace AutomationFramework.Tests
         ThreadLocal<IWebDriver> driver = new ThreadLocal<IWebDriver>();  
         BrowserType browserType;
         String huburl;
+        ExtentTest test;
+        //IWebDriver webDriver;
         public BaseTest(BrowserType browserType, String huburl)
         {
             this.browserType = browserType;
@@ -30,7 +32,7 @@ namespace AutomationFramework.Tests
         }
         [OneTimeSetUp]
         public void OneTimeSetup() {
-            ExtentManager.createParenttest(GetType().Name);
+            ExtentManager.createParenttest(GetType().Name, $"{browserType}");
         }
         [OneTimeTearDown] public void OneTimeTearDown()
         {
@@ -40,7 +42,9 @@ namespace AutomationFramework.Tests
 
         public void Setup()
         {
-            ExtentManager.createtest(TestContext.CurrentContext.Test.Name);
+            test=ExtentManager.createtest(TestContext.CurrentContext.Test.Name);
+
+            test.Info($"{browserType}");
             IWebDriver webDriver;
            
 #pragma warning disable CS8601 // Possible null reference assignment.
@@ -65,10 +69,11 @@ namespace AutomationFramework.Tests
                         ReportLog.Fail("Screenshot", CaptureScreenshot(TestContext.CurrentContext.Test.Name));
                         break;
                     case TestStatus.Passed:
-                        ReportLog.Pass(stackTrace);
+                        
+                        ReportLog.Pass("Screenshot", CaptureScreenshot(TestContext.CurrentContext.Test.Name));
                         break;
                     case TestStatus.Skipped:
-                        ReportLog.Pass("Test skippeed");
+                        ReportLog.Skip("Test skippeed");
                         break;
                     default:
                         break;
