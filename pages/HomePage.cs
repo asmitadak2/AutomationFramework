@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AutomationFramework.Common;
+using AutomationFramework.Resources;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support;
 
@@ -36,6 +37,11 @@ namespace AutomationFramework.pages
             driver.Navigate().GoToUrl("https://www.google.com");
             driver.Manage().Window.Maximize();
             Type(searchbox, "I Want to se this on a remote machine");
+            if (searchbox != null)
+            {
+                Assert.Pass();
+            }else
+                Assert.Fail();
             //driver.FindElement(By.Name("q")).SendKeys("I Want to se this on a remote machine");
         }
     }
