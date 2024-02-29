@@ -13,14 +13,14 @@ namespace AutomationFramework.Resources
 {
     public class ExtentService
     {
-        public ExtentReports extentReports;
-        public Utility utility;
+        public static ExtentReports extentReports;
+        
        
         
-        public ExtentReports GetExtentReports() { 
+        public static ExtentReports GetExtent() { 
             if(extentReports==null) { 
                 extentReports = new ExtentReports();
-                string ReportDir = Path.Combine(utility.GetProjectRootDirectory(),"Report");
+                string ReportDir = Path.Combine(Utility.GetProjectRootDirectory(),"Report");
                 if(!Directory.Exists(ReportDir))
                 {
                     Directory.CreateDirectory(ReportDir);   

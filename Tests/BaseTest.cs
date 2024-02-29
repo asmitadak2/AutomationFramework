@@ -8,6 +8,10 @@ using System.Threading.Tasks;
 using OpenQA.Selenium.Support;
 using AutomationFramework.Common;
 using System.Threading;
+using AutomationFramework.Resources;
+using NUnit.Framework.Interfaces;
+using OpenQA.Selenium.DevTools.V117.Page;
+using AventStack.ExtentReports;
 
 namespace AutomationFramework.Tests
 {
@@ -16,8 +20,7 @@ namespace AutomationFramework.Tests
     [Parallelizable(ParallelScope.Fixtures)]
     public class BaseTest
     {
-        ThreadLocal<IWebDriver> driver = new ThreadLocal<IWebDriver>();
-        
+        ThreadLocal<IWebDriver> driver = new ThreadLocal<IWebDriver>();  
         BrowserType browserType;
         String huburl;
         public BaseTest(BrowserType browserType, String huburl)
@@ -25,10 +28,19 @@ namespace AutomationFramework.Tests
             this.browserType = browserType;
             this.huburl = huburl;
         }
+        [OneTimeSetUp]
+        public void OneTimeSetup() {
+            ExtentManager.createParenttest(GetType().Name);
+        }
+        [OneTimeTearDown] public void OneTimeTearDown()
+        {
+            ExtentService.GetExtent().Flush();
+        }
         [SetUp]
 
         public void Setup()
         {
+            ExtentManager.createtest(GetType().Name);
             IWebDriver webDriver;
            
 #pragma warning disable CS8601 // Possible null reference assignment.
@@ -39,13 +51,53 @@ namespace AutomationFramework.Tests
         [TearDown]
         public void TearUp()
         {
-            IWebDriver webDriver;
-            webDriver=driver.Value;
-            webDriver.Quit();
+            try
+            {
+                var status = TestContext.CurrentContext.Result.Outcome.Status;
+                var errormessage = string.IsNullOrEmpty(TestContext.CurrentContext.Result.Message) ? "" : string.Format("<pre>{0}</pre>", TestContext.CurrentContext.Result.Message);
+                var stackTrace = string.IsNullOrEmpty(TestContext.CurrentContext.Result.StackTrace) ? "" : string.Format("<pre>{0}</pre>", TestContext.CurrentContext.Result.StackTrace);
+                switch (status)
+                {
+                    case TestStatus.Failed:
+                        ReportLog.Fail("Test Failed");
+                        ReportLog.Fail(errormessage);
+                        ReportLog.Fail(stackTrace);
+                        ReportLog.Fail("Screenshot", CaptureScreenshot(TestContext.CurrentContext.Test.Name));
+                        break;
+                    case TestStatus.Passed:
+                        ReportLog.Pass(stackTrace);
+                        break;
+                    case TestStatus.Skipped:
+                        ReportLog.Pass("Test skippeed");
+                        break;
+                    default:
+                        break;
+
+                }
+            }
+            catch (Exception e)
+            {
+
+                throw new Exception("Exception:" + e);
+            }
+            finally
+            {
+                IWebDriver webDriver;
+                webDriver = driver.Value;
+                webDriver.Quit();
+            }
+           
         }
         public IWebDriver GetWebDriver()
         {
             return driver.Value;
+        }
+        public MediaEntityModelProvider CaptureScreenshot(String name)
+        {
+            IWebDriver webDriver;
+            webDriver = driver.Value;
+            var screenshot=((ITakesScreenshot)webDriver).GetScreenshot().AsBase64EncodedString;   
+            return MediaEntityBuilder.CreateScreenCaptureFromBase64String(screenshot,name).Build();
         }
     }
 }
