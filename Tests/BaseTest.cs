@@ -42,7 +42,7 @@ namespace AutomationFramework.Tests
 
         public void Setup()
         {
-            test=ExtentManager.createtest(TestContext.CurrentContext.Test.Name);
+            test=ExtentManager.createtest(TestContext.CurrentContext.Test.MethodName);
 
             test.Info($"{browserType}");
             IWebDriver webDriver;
@@ -66,11 +66,11 @@ namespace AutomationFramework.Tests
                         ReportLog.Fail("Test Failed");
                         ReportLog.Fail(errormessage);
                         ReportLog.Fail(stackTrace);
-                        ReportLog.Fail("Screenshot", CaptureScreenshot(TestContext.CurrentContext.Test.Name));
+                        ReportLog.Fail("Screenshot", CaptureScreenshot(TestContext.CurrentContext.Test.MethodName));
                         break;
                     case TestStatus.Passed:
                         
-                        ReportLog.Pass("Screenshot", CaptureScreenshot(TestContext.CurrentContext.Test.Name));
+                        ReportLog.Pass("Screenshot", CaptureScreenshot(TestContext.CurrentContext.Test.MethodName));
                         break;
                     case TestStatus.Skipped:
                         ReportLog.Skip("Test skippeed");

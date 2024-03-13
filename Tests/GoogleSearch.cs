@@ -1,5 +1,6 @@
 ﻿using AutomationFramework.Common;
 using AutomationFramework.pages;
+using AutomationFramework.Resources;
 using OpenQA.Selenium;
 using System;
 using System.Collections.Generic;
@@ -20,19 +21,21 @@ namespace AutomationFramework.Tests
             this.huburl = huburl;
         }
         [Test]
-        public void OpenGoogleAndSearch()
+        [TestCaseSource(typeof(TestData), nameof(TestData.Whattosearch))]
+        public void OpenGoogleAndSearch(TestData testData)
         {
             HomePage homepage=new(GetWebDriver());
-            homepage.googleit();
+            homepage.googleit(testData);
             //GetWebDriver().Navigate().GoToUrl("https://www.google.com");
             //GetWebDriver().Manage().Window.Maximize();
             //GetWebDriver().FindElement(By.Name("q")).SendKeys("I Want to se this on a remote machine");
         }
         [Test]
-        public void SearchGoogle()
+        [TestCaseSource(typeof(TestData), nameof(TestData.Whattosearch))]
+        public void SearchGoogle(TestData testData)
         {
             HomePage homepage = new(GetWebDriver());
-            homepage.googleit();
+            homepage.googleit(testData);
         }
 
     }

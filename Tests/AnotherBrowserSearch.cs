@@ -23,18 +23,19 @@ namespace AutomationFramework.Tests
         public void OpenBing()
         {
             HomePage homepage = new(GetWebDriver());
-
-            GetWebDriver().Navigate().GoToUrl("https://www.bing.com");
-            ReportLog.Pass("User is in URL");
-            GetWebDriver().Manage().Window.Maximize();
-            GetWebDriver().FindElement(By.Name("q")).SendKeys("I Want to se this on a remote machine");
+            homepage.bingit();
+            //GetWebDriver().Navigate().GoToUrl("https://www.bing.com");
+            //ReportLog.Pass("User is in URL");
+            //GetWebDriver().Manage().Window.Maximize();
+            //GetWebDriver().FindElement(By.Name("q")).SendKeys("I Want to se this on a remote machine");
            
         }
         [Test]
-        public void SearchGoogle()
+        [TestCaseSource(typeof(TestData), nameof(TestData.Whattosearch))]
+        public void SearchGoogle(TestData testData)
         {
             HomePage homepage = new(GetWebDriver());
-            homepage.googleit();
+            homepage.googleit(testData);
         }
     }
 }
