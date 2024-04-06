@@ -16,28 +16,29 @@ namespace AutomationFramework.pages
     {
       
         IWebDriver driver;
-        
+
         #region variables for dynamic locators  
-        private static string itemname;
-        private static string itemstring;
+        static string itemname = "default";
+        static string itemstring= "default";
         #endregion
 
         #region page element locators    
         By Searchbox = By.XPath("//input[@placeholder='Search']");
-        By Item = By.XPath($"//a[normalize-space()='{itemname}']");
+        By Item = null;
+        By addtocartBtn = null;
         #endregion
         public EcommerceHome(IWebDriver driver) : base(driver)
         {
             this.driver = driver;
         }
-        public  static String GetItemName(CartItem item)
-        {
-            return item.get_ItemName;
-        }
-        public String GetItemString(CartItem item)
-        {
-            return item.get_ItemString;
-        }
+        //public String GetItemName(CartItem item)
+        //{
+        //    return item.get_ItemName;
+        //}
+        //public String GetItemString(CartItem item)
+        //{
+        //    return item.get_ItemString;
+        //}
 
         public void SearchforItem(CartItem item)
         {
@@ -47,9 +48,16 @@ namespace AutomationFramework.pages
         }
         public void AddItemtoCart(CartItem item)
         {
-            itemname=GetItemName(item);
-            click(Item);
+            itemname= item.ItemName;
+            Item = By.XPath($"//a[normalize-space()='{itemname}']");
+            ScrollToView(Item, driver);
+            addtocartBtn=By.XPath($"//a[normalize-space()='{itemname}'] //ancestor::div[@class='caption']//following-sibling::div//i[@class='fa fa-shopping-cart']");
+            ScrollToView(addtocartBtn, driver);
+            Thread.Sleep(3000);
+            click(addtocartBtn);
+
         }
+
 
     }
 }
