@@ -14,6 +14,8 @@ namespace AutomationFramework.Models
 
         public string ItemString { get; set; }  = string.Empty;
         public string ItemName { get; set; } = string.Empty;
+
+        
         //public string ItemString;
         //public string ItemName;
 
