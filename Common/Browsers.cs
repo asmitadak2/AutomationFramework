@@ -31,10 +31,16 @@ namespace AutomationFramework.Common
             {
                 case BrowserType.Chrome:
                     var chromeoptions=new ChromeOptions();
+                    chromeoptions.AddArguments("--start-maximized");
+                    chromeoptions.AddArguments("force-device-scale-factor=0.75");
+                    chromeoptions.AddArguments("high-dpi-support=0.75");
                     driver = new ChromeDriver(chromeoptions);
                     break;
                 case BrowserType.Edge:
                     var options = new EdgeOptions();
+                    options.AddArguments("--start-maximized");
+                    options.AddArguments("force-device-scale-factor=0.75");
+                    options.AddArguments("high-dpi-support=0.75");
                     driver = new EdgeDriver(options);
                     break;
                 case BrowserType.Firefox:
@@ -55,7 +61,7 @@ namespace AutomationFramework.Common
             switch (browserType)
             {
                 case BrowserType.Chrome:
-                    ChromeOptions chromeOptions = new ChromeOptions();
+                    ChromeOptions chromeOptions = new ChromeOptions();                
                     driver = GetWebDriver(hubUrl, chromeOptions.ToCapabilities());
                     ReportLog.Pass("Chrome Initialised successfully");
                     break;
