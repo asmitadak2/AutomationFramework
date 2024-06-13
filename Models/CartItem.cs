@@ -2,6 +2,7 @@
 using AutomationFramework.Resources;
 using RazorEngine.Compilation.ImpromptuInterface.Dynamic;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -42,6 +43,12 @@ namespace AutomationFramework.Models
             return items;
 
 
+        }
+        public static List<CartItem> GetCartItems()
+        {
+            ItemListReader reader = new ItemListReader("C:\\Users\\asadak\\source\\repos\\AutomationFramework\\JSONS\\ItemList.json");
+            List<CartItem> cartitemlist = reader.ReadCartItemsfromJSON();
+            return cartitemlist;
         }
     }
 }

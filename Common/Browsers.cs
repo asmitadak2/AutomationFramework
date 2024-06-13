@@ -34,6 +34,7 @@ namespace AutomationFramework.Common
                     chromeoptions.AddArguments("--start-maximized");
                     chromeoptions.AddArguments("force-device-scale-factor=0.75");
                     chromeoptions.AddArguments("high-dpi-support=0.75");
+                    chromeoptions.AddArguments("--headless=new");
                     driver = new ChromeDriver(chromeoptions);
                     break;
                 case BrowserType.Edge:
@@ -41,6 +42,7 @@ namespace AutomationFramework.Common
                     options.AddArguments("--start-maximized");
                     options.AddArguments("force-device-scale-factor=0.75");
                     options.AddArguments("high-dpi-support=0.75");
+                    options.AddArguments("--headless=new");
                     driver = new EdgeDriver(options);
                     break;
                 case BrowserType.Firefox:

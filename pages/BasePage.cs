@@ -1,4 +1,5 @@
 ﻿using AutomationFramework.Common;
+using Microsoft.AspNetCore.Razor.Language.Intermediate;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 using System;
@@ -11,12 +12,12 @@ namespace AutomationFramework.pages
 {
     public class BasePage
     {
-        
+
         IWebDriver driver;
         public BasePage(IWebDriver driver) {
-        this.driver = driver;
+            this.driver = driver;
         }
-        
+
 
         public void click(By keyword)
         {
@@ -24,7 +25,7 @@ namespace AutomationFramework.pages
             try
             {
                 element.Click();
-                Console.WriteLine("Clicking on an Element : " + element);
+                Console.WriteLine("Clicking on an Element : " + keyword.ToString());
                 // ExtentListeners.test.log(Status.INFO, "Clicking on an Element : " + locatorKey);
             }
             catch (Exception t)
@@ -50,7 +51,7 @@ namespace AutomationFramework.pages
             try
             {
                 js.ExecuteScript("arguments[0].scrollIntoView();", element);
-                Console.WriteLine("element in view : " + element);
+                Console.WriteLine("element in view : " + keyword.ToString());
                 //ExtentListeners.test.log(Status.INFO,
                 //        "typing in an Element : " + locatorKey + " entered the value as : " + value);
             }
@@ -91,12 +92,12 @@ namespace AutomationFramework.pages
 
         public void Type(By keyword, string value)
         {
-            IWebElement element= driver.FindElement(keyword);
+            IWebElement element = driver.FindElement(keyword);
             try
             {
                 element.Clear();
                 element.SendKeys(value);
-                Console.WriteLine(element + "is clicked: " + value + " is entered");
+                Console.WriteLine(keyword.ToString() + "is clicked: " + value + " is entered");
             }
             catch (Exception e)
             {
@@ -105,7 +106,16 @@ namespace AutomationFramework.pages
                 Assert.Fail(e.Message);
             }
         }
-        
+        public void waitforvisivility(By keyword, IWebDriver driver)
+        {
+            IWebElement element = driver.FindElement(keyword);
 
+            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+           	
+            WebDriverWait w = new WebDriverWait(driver, TimeSpan.FromSeconds(20));
+            w.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(keyword));
+        
+        }
     }
 }
+

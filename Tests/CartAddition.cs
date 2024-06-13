@@ -17,16 +17,20 @@ namespace AutomationFramework.Tests
         public CartAddition( BrowserType browserType,String huburl):base(browserType,huburl) { 
             this.browserType = browserType; this.huburl = huburl;   
         }
+        
         [Test]
-        [TestCaseSource(typeof(CartItem), nameof(CartItem.Whattosearch))]
-        public void AddtoCart(CartItem item)
+        //[TestCaseSource(typeof(CartItem), nameof(CartItem.Whattosearch))]
+        //public void AddtoCart(CartItem cartItem) 
+        public void AddtoCart()
         {
-            EcommerceHome ecommerceHome=new EcommerceHome(GetWebDriver());
-            
-            ecommerceHome.SearchforItem(item);
-            ecommerceHome.AddItemtoCart(item);
+            EcommerceHome ecommerceHome = new EcommerceHome(GetWebDriver());
+            //ecommerceHome.SearchforItem(item);
+            ecommerceHome.SearchforItem();
+            //ecommerceHome.AddItemtoCart(item);
+            //ecommerceHome.AddItemtoCart();
+            ecommerceHome.verifycartItem();
         }
-       
+        
 
     }
 }
